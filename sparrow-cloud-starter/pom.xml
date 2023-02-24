@@ -16,6 +16,7 @@
 
     <modules>
         <module>sparrow-cloud-starter-idgenerator</module>
+        <module>sparrow-cloud-starter-nodeflow</module>
     </modules>
 
 
@@ -29,6 +30,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>

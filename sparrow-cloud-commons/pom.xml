@@ -16,6 +16,7 @@
 
     <modules>
        <module>sparrow-commons-idgenerator</module>
+       <module>sparrow-commons-nodeflow</module>
     </modules>
 
     <dependencyManagement>

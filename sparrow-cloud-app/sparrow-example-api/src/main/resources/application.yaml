@@ -1,0 +1,21 @@
+debug: true
+server:
+  port: 8050
+spring:
+  profile: local
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: sdeven-sparrow
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/develop?serverTimezone=Asia/Shanghai&autoReconnect=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        show-sql: true

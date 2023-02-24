@@ -19,6 +19,21 @@
             <artifactId>sparrow-example-domain</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.chen.sdeven.sparrow</groupId>
+            <artifactId>sparrow-example-app</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chen.sdeven.sparrow</groupId>
+            <artifactId>sparrow-example-infras</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
