@@ -7,11 +7,17 @@
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
         <artifactId>sparrow-cloud-commons</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-commons-nodeflow</artifactId>
+    <artifactId>sparrow-commons-util</artifactId>
     <version>${revision}</version>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
 </project>

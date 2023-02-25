@@ -6,25 +6,26 @@
 
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
-        <artifactId>sparrow-cloud-app</artifactId>
+        <artifactId>sparrow-cloud-commons</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-example-infras</artifactId>
+    <artifactId>sparrow-commons-timewheel</artifactId>
     <version>${revision}</version>
-
 
     <dependencies>
         <dependency>
-            <groupId>com.chen.sdeven.sparrow</groupId>
-            <artifactId>sparrow-example-domain</artifactId>
-            <version>${revision}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
         </dependency>
         <dependency>
             <groupId>com.chen.sdeven.sparrow</groupId>
-            <artifactId>sparrow-example-app</artifactId>
+            <artifactId>sparrow-commons-util</artifactId>
             <version>${revision}</version>
         </dependency>
     </dependencies>
-
 </project>

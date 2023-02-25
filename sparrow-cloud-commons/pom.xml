@@ -15,8 +15,9 @@
     <packaging>pom</packaging>
 
     <modules>
+       <module>sparrow-commons-util</module>
        <module>sparrow-commons-idgenerator</module>
-       <module>sparrow-commons-nodeflow</module>
+       <module>sparrow-commons-timewheel</module>
     </modules>
 
     <dependencyManagement>
@@ -25,6 +26,13 @@
                 <groupId>com.chen.sdeven.sparrow</groupId>
                 <artifactId>sparrow-cloud-dependence</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava-bom</artifactId>
+                <version> 29.0-jre</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

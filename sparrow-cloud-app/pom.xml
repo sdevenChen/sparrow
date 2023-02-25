@@ -9,9 +9,10 @@
         <artifactId>sparrow</artifactId>
         <version>${revision}</version>
     </parent>
-    <packaging>pom</packaging>
+
     <artifactId>sparrow-cloud-app</artifactId>
     <version>${revision}</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>sparrow-example-api</module>

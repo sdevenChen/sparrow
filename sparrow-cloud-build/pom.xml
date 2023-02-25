@@ -12,6 +12,7 @@
 
     <artifactId>sparrow-cloud-build</artifactId>
     <version>${revision}</version>
+
     <modules>
         <module>sparrow-cloud-dependence</module>
     </modules>

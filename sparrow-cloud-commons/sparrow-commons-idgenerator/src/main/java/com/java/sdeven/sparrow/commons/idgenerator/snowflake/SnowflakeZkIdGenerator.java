@@ -9,6 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * SnowflakeZkIdGenerator
+ * @Date 2019/8/11
+ * @Author  sdeven.chen.dongwei@gmail.com
+ */
 @Slf4j
 public class SnowflakeZkIdGenerator implements IdGenerator {
     private ZookeeperService zkService;
