@@ -6,13 +6,12 @@
 
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
-        <artifactId>sparrow-cloud-app</artifactId>
+        <artifactId>sparrow-cloud-idea</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-example-domain</artifactId>
+    <artifactId>sparrow-cloud-domain</artifactId>
     <version>${revision}</version>
-
 
 
 </project>

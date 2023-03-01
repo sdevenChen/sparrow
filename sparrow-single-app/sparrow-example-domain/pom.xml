@@ -6,17 +6,20 @@
 
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
-        <artifactId>sparrow</artifactId>
+        <artifactId>sparrow-single-app</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-cloud-bom</artifactId>
+    <artifactId>sparrow-example-domain</artifactId>
     <version>${revision}</version>
-    <packaging>pom</packaging>
 
-    <modules>
-        <module>sparrow-app-bom</module>
-        <module>sparrow-starter-bom</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.chen.sdeven.sparrow</groupId>
+            <artifactId>sparrow-cloud-domain</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -6,17 +6,13 @@
 
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
-        <artifactId>sparrow</artifactId>
+        <artifactId>sparrow-cloud-starter</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-cloud-bom</artifactId>
+    <artifactId>sparrow-cloud-starter-mybatisplus</artifactId>
     <version>${revision}</version>
-    <packaging>pom</packaging>
 
-    <modules>
-        <module>sparrow-app-bom</module>
-        <module>sparrow-starter-bom</module>
-    </modules>
+
 
 </project>

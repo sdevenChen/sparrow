@@ -6,31 +6,33 @@
 
     <parent>
         <groupId>com.chen.sdeven.sparrow</groupId>
-        <artifactId>sparrow</artifactId>
+        <artifactId>sparrow-cloud-bom</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>sparrow-cloud-idea</artifactId>
+    <artifactId>sparrow-starter-bom</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>sparrow-cloud-file</module>
-        <module>sparrow-cloud-api</module>
-        <module>sparrow-cloud-app</module>
-        <module>sparrow-cloud-domain</module>
-        <module>sparrow-cloud-infras</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.chen.sdeven.sparrow</groupId>
-                <artifactId>sparrow-cloud-dependence</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <artifactId>sparrow-commons-util</artifactId>
+                <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.chen.sdeven.sparrow</groupId>
+                <artifactId>sparrow-commons-idgenerator</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.chen.sdeven.sparrow</groupId>
+                <artifactId>sparrow-commons-timewheel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
+
 </project>

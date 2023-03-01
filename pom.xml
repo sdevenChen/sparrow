@@ -8,7 +8,7 @@
     <version>${revision}</version>
 
     <modules>
-        <module>sparrow-cloud-app</module>
+        <module>sparrow-single-app</module>
         <module>sparrow-cloud-bom</module>
         <module>sparrow-cloud-build</module>
         <module>sparrow-cloud-commons</module>

@@ -17,6 +17,7 @@
     <modules>
         <module>sparrow-cloud-starter-idgenerator</module>
         <module>sparrow-cloud-starter-nodeflow</module>
+        <module>sparrow-cloud-starter-mybatisplus</module>
     </modules>
 
 
@@ -37,7 +38,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.chen.sdeven.sparrow</groupId>
-                <artifactId>sparrow-cloud-bom</artifactId>
+                <artifactId>sparrow-starter-bom</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
