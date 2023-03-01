@@ -26,7 +26,7 @@ import java.util.List;
  * ZookeeperAutoConfigurer
  *
  * @Date 2020/2/17 下午4:38
- * @Author sdeven.chen.dongwei@gmail.com
+ * @Author sdeven
  */
 @Configuration
 @ConditionalOnClass(IdGenerator.class)

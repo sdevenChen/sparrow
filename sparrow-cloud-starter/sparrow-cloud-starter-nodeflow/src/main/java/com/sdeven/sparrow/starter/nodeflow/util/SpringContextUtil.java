@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Description SpringContextUtil
- * @Author sdeven.chen.dongwei@gmail.com
+ * @Author sdeven
  */
 @Component
 public class SpringContextUtil implements ApplicationContextAware {

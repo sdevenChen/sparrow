@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @Description NfComponent 扩展组件过滤加载器
- * @Author sdeven.chen.dongwei@gmail.com
+ * @Author sdeven
  */
 @Configuration
 @ComponentScan(basePackages = "com.sdeven.sparrow",includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = NfComponent.class))

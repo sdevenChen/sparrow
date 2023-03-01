@@ -32,7 +32,12 @@
         <dependency>
             <groupId>com.chen.sdeven.sparrow</groupId>
             <artifactId>sparrow-cloud-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.chen.sdeven.sparrow</groupId>
+            <artifactId>sparrow-example-sdk</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 

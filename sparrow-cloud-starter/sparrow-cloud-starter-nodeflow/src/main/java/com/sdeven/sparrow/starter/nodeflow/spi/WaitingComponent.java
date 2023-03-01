@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
   * @Description 延时组件
-  * @Author sdeven.chen.dongwei@gmail.com
+  * @Author sdeven
   * @Create 12/12/20 10:20
   */
 public class WaitingComponent implements NfComponent {

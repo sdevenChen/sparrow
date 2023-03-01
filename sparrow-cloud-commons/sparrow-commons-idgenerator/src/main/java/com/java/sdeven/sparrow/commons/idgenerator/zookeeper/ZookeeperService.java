@@ -9,7 +9,7 @@ import java.util.List;
  * ZookeeperService
  *
  * @Date 2020/2/17 下午5:19
- * @Author  sdeven.chen.dongwei@gmail.com
+ * @Author  sdeven
  */
 public interface ZookeeperService {
     /**

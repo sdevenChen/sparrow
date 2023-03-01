@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.chen.sdeven.sparrow.cloud.api.configuration.CommonWebAutoConfiguration

@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
   * @Description 字符串处理工具类
-  * @Author sdeven.chen.dongwei@gmail.com
+  * @Author sdeven
   * @Create 12/12/20 10:20
   */
 public class StringUtils {

@@ -19,6 +19,7 @@
         <module>sparrow-example-app</module>
         <module>sparrow-example-domain</module>
         <module>sparrow-example-infras</module>
+        <module>sparrow-example-sdk</module>
     </modules>
 
     <dependencyManagement>

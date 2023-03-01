@@ -2,7 +2,7 @@ package com.sdeven.sparrow.starter.nodeflow;
 
 /**
  * @Description 脚本输入输出字段对象
- * @Author sdeven.chen.dongwei@gmail.com
+ * @Author sdeven
  */
 public class NodeflowField {
     /**

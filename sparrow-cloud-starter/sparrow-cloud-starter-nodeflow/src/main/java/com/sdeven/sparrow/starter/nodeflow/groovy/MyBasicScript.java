@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 /**
   * @Description 定义自己的表达式解析类
-  * @Author sdeven.chen.dongwei@gmail.com
+  * @Author sdeven
   * @Create 12/11/20 10:06
   */
 public class MyBasicScript extends Script {

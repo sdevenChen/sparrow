@@ -2,7 +2,7 @@ package com.sdeven.sparrow.starter.nodeflow;
 
 /**
  * @Description 节点规则引擎解析支持字段
- * @Author sdeven.chen.dongwei@gmail.com
+ * @Author sdeven
  */
 public class NodeflowResolveField {
     /**

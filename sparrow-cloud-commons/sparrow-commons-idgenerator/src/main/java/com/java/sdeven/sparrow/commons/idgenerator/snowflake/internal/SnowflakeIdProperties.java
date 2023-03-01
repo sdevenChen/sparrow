@@ -6,7 +6,7 @@ import lombok.Data;
  * SnowflakeIdProperties
  *
  * @Date 2020/2/17 下午4:37
- * @Author  sdeven.chen.dongwei@gmail.com
+ * @Author  sdeven
  */
 @Data
 public class SnowflakeIdProperties {

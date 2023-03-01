@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
   * @Description Groovy 规则组件
-  * @Author sdeven.chen.dongwei@gmail.com
+  * @Author sdeven
   * @Create 12/12/20 10:18
   */
 public class GroovyRuleSetComponent implements NfComponent {

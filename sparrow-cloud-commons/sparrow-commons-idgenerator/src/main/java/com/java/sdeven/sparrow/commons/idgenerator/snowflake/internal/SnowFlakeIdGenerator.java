@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * 并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
  *
  * @Date 2019/8/11 下午3:55
- * @Author  sdeven.chen.dongwei@gmail.com
+ * @Author  sdeven
  */
 @Slf4j
 public class SnowFlakeIdGenerator {

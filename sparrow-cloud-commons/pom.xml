@@ -18,6 +18,7 @@
        <module>sparrow-commons-util</module>
        <module>sparrow-commons-idgenerator</module>
        <module>sparrow-commons-timewheel</module>
+       <module>sparrow-commons-base</module>
     </modules>
 
     <dependencyManagement>

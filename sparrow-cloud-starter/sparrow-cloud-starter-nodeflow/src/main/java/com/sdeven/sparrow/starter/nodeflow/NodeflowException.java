@@ -3,7 +3,7 @@ package com.sdeven.sparrow.starter.nodeflow;
 
  /**
    * @Description Nodeflow 异常
-   * @Author sdeven.chen.dongwei@gmail.com
+   * @Author sdeven
    * @Create 12/12/20 10:19
    */
 public class NodeflowException extends Exception {

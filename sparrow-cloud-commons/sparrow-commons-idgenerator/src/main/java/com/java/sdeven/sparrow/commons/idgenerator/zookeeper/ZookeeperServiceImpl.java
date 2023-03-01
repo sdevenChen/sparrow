@@ -14,7 +14,7 @@ import java.util.List;
  * ZookeeperServiceImpl
  *
  * @Date 2020/2/17 下午5:21
- * @Author  sdeven.chen.dongwei@gmail.com
+ * @Author  sdeven
  */
 @Slf4j
 public class ZookeeperServiceImpl implements ZookeeperService {

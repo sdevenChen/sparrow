@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
   * @Description 组件父类
-  * @Author sdeven.chen.dongwei@gmail.com
+  * @Author sdeven
   * @Create 12/12/20 10:18
   */
 public interface NfComponent {
