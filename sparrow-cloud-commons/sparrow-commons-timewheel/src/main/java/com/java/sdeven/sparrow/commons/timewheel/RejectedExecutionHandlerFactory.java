@@ -21,10 +21,10 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 拒绝策略
+ * Rejection Strategies
  *
  * @author sdeven
- * @since 2020/11/28
+ * @since 1.0.0
  */
 @Slf4j
 public class RejectedExecutionHandlerFactory {
@@ -32,7 +32,7 @@ public class RejectedExecutionHandlerFactory {
     private static final AtomicLong COUNTER = new AtomicLong();
 
     /**
-     * 直接丢弃该任务
+     * Discard a task with one input parameter
      * @param source log name
      * @return A handler for tasks that cannot be executed by ThreadPool
      */
@@ -44,7 +44,7 @@ public class RejectedExecutionHandlerFactory {
     }
 
     /**
-     * 调用线程运行
+     * Calling threads to run
      * @param source log name
      * @return A handler for tasks that cannot be executed by ThreadPool
      */
@@ -59,7 +59,7 @@ public class RejectedExecutionHandlerFactory {
     }
 
     /**
-     * 新线程运行
+     * Create a new thread and run it
      * @param source log name
      * @return A handler for tasks that cannot be executed by ThreadPool
      */

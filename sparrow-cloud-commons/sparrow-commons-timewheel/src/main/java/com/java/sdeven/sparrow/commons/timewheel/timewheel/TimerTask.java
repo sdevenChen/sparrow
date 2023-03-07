@@ -16,10 +16,10 @@
 package com.java.sdeven.sparrow.commons.timewheel.timewheel;
 
 /**
- * 时间任务接口
+ * Timer Task Interface
  *
  * @author sdeven
- * @since 2020/4/2
+ * @since 1.0.0
  */
 @FunctionalInterface
 public interface TimerTask extends Runnable {

@@ -42,10 +42,10 @@ public class CommonWebAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
     public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
-        // 创建消息转换器
+        /** Creating Message Converters */
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
 
-        // 创建配置类
+        /** Creating Configuration Classes */
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
                 SerializerFeature.BrowserSecure,
@@ -55,7 +55,7 @@ public class CommonWebAutoConfiguration implements WebMvcConfigurer {
                 SerializerFeature.WriteNullBooleanAsFalse);
         fastConverter.setFastJsonConfig(config);
 
-        //附加：处理中文乱码
+        /** Chinese messy code processor */
         List<MediaType> fastMedisTypes = new ArrayList<>();
         fastMedisTypes.add(MediaType.APPLICATION_JSON_UTF8);
         fastConverter.setSupportedMediaTypes(fastMedisTypes);

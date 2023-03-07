@@ -23,9 +23,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Description 响应参数基类
- * @Author sdeven
- * @Create 11/13/20 18:19
+ * A commons using response parameter base class
+ * @author sdeven
  */
 @Data
 @NoArgsConstructor
@@ -34,17 +33,17 @@ public class Result<T> implements Serializable {
 
 	private static final long serialVersionUID = -655403293051655566L;
 	/**
-	 * 返回数据
+	 * Return message data
 	 */
 	private T data;
 
 	private List<T> datas;
 	/**
-	 * 返回码
+	 * Return Status Code
  	 */
 	private Integer code;
 	/**
-	 * 返回描述
+	 * Return to description
 	 */
 	private String message;
 

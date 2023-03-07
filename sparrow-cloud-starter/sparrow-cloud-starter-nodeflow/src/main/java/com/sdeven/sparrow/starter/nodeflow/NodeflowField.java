@@ -16,8 +16,8 @@
 package com.sdeven.sparrow.starter.nodeflow;
 
 /**
- * @Description 脚本输入输出字段对象
- * @Author sdeven
+ * Script input and output field objects
+ * @author sdeven
  */
 public class NodeflowField {
     /**
@@ -29,15 +29,15 @@ public class NodeflowField {
      */
     public static final String KEY_NAME = "name";
     /**
-     * 字段类型 1:input, 2:output, 3:input&output
+     * Embedded Field Types 1:input, 2:output, 3:input&output
      */
     public static final String KEY_MODE = "mode";
     /**
-     * 验证正则表达式
+     * Regular expression execution block
      */
     public static final String KEY_REGX = "regx";
     /**
-     * 验证正则名称
+     * Regular expression name
      */
     public static final String KEY_REGX_NAME = "regxName";
 }

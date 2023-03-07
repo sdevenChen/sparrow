@@ -24,16 +24,15 @@ import java.util.Hashtable;
 import java.util.Map;
 
 /**
-  * @Description 自定义表达式调用
-  * @Author sdeven
-  * @Create 12/12/20 10:18
+  * Custom Expression Call Executor
+  * @author sdeven
   *
   */
 public class ExprSupport {
    private static final Object LOCK = new Object();
    private static final GroovyShell SHELL;
 
-   private static Hashtable<String, Script> cache = new Hashtable<String, Script>();
+   private static Hashtable<String, Script> cache = new Hashtable<>();
    static {
        CompilerConfiguration cfg = new CompilerConfiguration();
        cfg.setScriptBaseClass(MyBasicScript.class.getName());

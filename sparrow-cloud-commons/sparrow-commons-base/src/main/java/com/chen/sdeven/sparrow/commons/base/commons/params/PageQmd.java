@@ -22,27 +22,27 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * @Description 公共分页请求类
- * @Author sdeven
+ * Generic paging query request class
+ * @author sdeven
  */
 @Data
 public class PageQmd implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 当前页
+	 * Current page
 	 */
-	@NotNull(message = "当前页不能为空")
+	@NotNull(message = "The current page cannot be empty")
 	public Long current = 1L;
 
 	/**
-	 * 每页显示条数，默认 10
+	 * Number of bars per page, default 10
 	 */
-	@NotNull(message = "每页显示条数不能为空")
+	@NotNull(message = "The number of entries per page cannot be empty")
 	public Long size = 10L;
 
 	/**
-	 * 排序字段
+	 * Sort Field String
 	 */
 	public String order;
 

@@ -16,7 +16,7 @@
 package com.chen.sdeven.sparrow.commons.base.commons.exception;
 
 /**
- * @Author sdeven
+ * @author sdeven
  */
 public class CommonException extends RuntimeException {
 

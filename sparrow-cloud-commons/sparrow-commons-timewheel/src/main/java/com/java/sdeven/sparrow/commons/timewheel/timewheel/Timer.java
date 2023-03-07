@@ -19,20 +19,23 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 定时器
+ * Custom Timer
  *
  * @author sdeven
- * @since 2020/4/2
+ * @since 1.0.0
  */
 public interface Timer {
 
     /**
-     * 调度定时任务
+     * Scheduling Timed Tasks
+     * @param #task {@link TimerTask}
+     * @param #unit {@link TimeUnit}
      */
     TimerFuture schedule(TimerTask task, long delay, TimeUnit unit);
 
     /**
-     * 停止所有调度任务
+     * Stopping all scheduling tasks
+     * @return Set<TimerTask>
      */
     Set<TimerTask> stop();
 }

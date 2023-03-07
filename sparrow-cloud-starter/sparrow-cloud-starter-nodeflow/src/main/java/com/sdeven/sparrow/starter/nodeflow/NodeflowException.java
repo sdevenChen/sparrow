@@ -17,9 +17,8 @@ package com.sdeven.sparrow.starter.nodeflow;
 
 
  /**
-   * @Description Nodeflow 异常
-   * @Author sdeven
-   * @Create 12/12/20 10:19
+   * A Nodeflow Engine Exception
+   * @author sdeven
    */
 public class NodeflowException extends Exception {
 	private static final long serialVersionUID = 9222894717715477267L;

@@ -23,66 +23,61 @@ import org.apache.zookeeper.CreateMode;
 import java.util.concurrent.TimeUnit;
 
 /**
- * SnowFlake
+ * Customize SnowFlake
  *
- * SnowFlake的结构如下(每部分用-分开):<br>
- * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
- * 1位标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0<br>
- * 41位时间截(毫秒级)，注意，41位时间截不是存储当前时间的时间截，而是存储时间截的差值（当前时间截 - 开始时间截)
- * 得到的值），这里的的开始时间截，一般是我们的id生成器开始使用的时间，由我们程序来指定的（如下下面程序IdWorker类的startTime属性）。
- * 41位的时间截，可以使用69年，年T = (1L << 41) / (1000L * 60 * 60 * 24 * 365) = 69<br>
- * 10位的数据机器位，可以部署在1024个节点，包括5位datacenterId和5位workerId<br>
- * 12位序列，毫秒内的计数，12位的计数顺序号支持每个节点每毫秒(同一机器，同一时间截)产生4096个ID序号<br>
- * 加起来刚好64位，为一个Long型。<br>
- * SnowFlake的优点是，整体上按照时间自增排序，并且整个分布式系统内不会产生ID碰撞(由数据中心ID和机器ID作区分)，
- * 并且效率较高，经测试，SnowFlake每秒能够产生26万ID左右。
- *
- * @Date 2019/8/11 下午3:55
- * @Author  sdeven
+ * The structure of SnowFlake is as follows (each part is separated by -):
+ * 0 - 00000000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000
+ * 1 bit identification, because the long basic type in Java is signed, the highest bit is the sign bit, positive is 0, negative is 1, so the id is generally positive, the highest bit is 0
+ * 41-bit time intercept (milliseconds), note that the 41-bit time intercept is not the time intercept to store the current time, but to store the difference between the time intercept (the current time intercept - start time intercept) to get the value), where the start time intercept, generally our id generator to start using the time specified by our program (the following program IdWorker class startTime property).
+ * 41-bit time intercept, you can use 69 years, year T = (1L << 41) / (1000L * 60 * 60 * 24 * 365) = 69
+ * 10-bit data machine bits, can be deployed in 1024 nodes, including 5-bit datacenterId and 5-bit workerId 12-bit sequence, assuming that the count in milliseconds: 12-bit count sequence number supports each node every millisecond (the same machine, the same time intercept) to generate 4096 ID sequence number adds up to exactly 64 bits, for a Long type .
+ * @author sdeven
+ * @since 1.0.0
  */
 @Slf4j
 public class SnowFlakeIdGenerator {
-    // 起始时间戳
+    /** Start End Time Stamp*/
     private final static long twepoch = 1577836800000L;// 2020-01-01
-    // 机器id所占的位数
+    /** The number of bits occupied by the machine id */
     private final static long workerIdBits = 8L;
-    // 数据标识id所占的位数
+    /** The number of bits occupied by the data identifier id */
     private final static long dataCenterIdBits = 2L;
-    // 序列在id中占的位数
+    /** The number of bits the sequence occupies in the id */
     private final static long sequenceBits = 12L;
 
-    // 机器ID向左移12位
+    /** Machine ID shifted 12 bits to the left */
     private final static long workerIdShift = sequenceBits;
-    // 数据标识id向左移20位(12+8)
+    /** The data identifier id is shifted 20 bits to the left (12+8) */
     private final static long dataCenterIdShift = sequenceBits + workerIdBits;
-    // 时间截向左移22位(2+8+12)
+    // Time cut-off shifted 22 places to the left(2+8+12)
     private final static long timestampLeftShift = sequenceBits + workerIdBits + dataCenterIdBits;
-    // 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
+    // Generate the mask for the sequence, here 4095 (0b111111111111=0xfff=4095)
     private final static long sequenceMask = ~(-1L << sequenceBits);
 
-    // 工作机器ID(0~2^8)
+    /** Work Machine ID(0~2^8)*/
     private long workerId;
-    // 数据中心ID(0~2^2)
+    /** Data Center ID (0~2^2) */
     private long dataCenterId;
 
 
-    // 毫秒内序列(0~4095)
+    /** Intra-millisecond sequence (0~4095) */
     private long sequence;
-    // 上次生成ID的时间截
+    /** Time cutoff of last ID generation */
     private long lastTimestamp;
-    // zk 路径
+    /** zookeeper worker node paths */
     private String zkWorkerNodePath;
-    // 业务
+    /** Custom business string */
     private String business;
 
     private ZookeeperService zkService;
     private SnowflakeIdProperties properties;
 
     /**
-     * 构造函数
-     *
-     * @param zkService  zkService
-     * @param properties IDGeneratorProperties
+     * Initialize constructor
+     * @param #business Customize Business String
+     * @param #zkService {@link ZookeeperService}
+     * @param #properties {@link SnowflakeIdProperties}
+     * @author sdeven
      */
     public SnowFlakeIdGenerator(ZookeeperService zkService, SnowflakeIdProperties properties, String business) throws Exception {
         // sanity check for workerId
@@ -141,8 +136,7 @@ public class SnowFlakeIdGenerator {
 
 
     /**
-     * 获得下一个ID (该方法是线程安全的)
-     *
+     * Thread safe to get the next ID
      * @return SnowflakeId
      */
     public synchronized long nextId() {
@@ -165,10 +159,9 @@ public class SnowFlakeIdGenerator {
     }
 
     /**
-     * 阻塞到下一个毫秒，直到获得新的时间戳
-     *
-     * @param lastTimestamp 上次生成ID的时间截
-     * @return 当前时间戳
+     * Blocks to the next millisecond until a new timestamp is obtained
+     * @param #lastTimestamp Time cutoff of the last generated ID
+     * @return Current Timestamp
      */
     private long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();

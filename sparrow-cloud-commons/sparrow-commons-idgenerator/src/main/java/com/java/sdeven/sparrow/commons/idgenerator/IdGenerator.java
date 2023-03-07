@@ -16,10 +16,9 @@
 package com.java.sdeven.sparrow.commons.idgenerator;
 
 /**
- * IDGenerator
+ * A number generator interface
  *
- * @Date 2020/2/17 下午6:13
- * @Author  sdeven
+ * @author sdeven
  */
 public interface IdGenerator {
     long nextId(String name);

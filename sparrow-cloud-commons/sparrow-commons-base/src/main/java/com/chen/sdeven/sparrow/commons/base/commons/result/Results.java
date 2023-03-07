@@ -18,17 +18,13 @@ package com.chen.sdeven.sparrow.commons.base.commons.result;
 
 import com.chen.sdeven.sparrow.commons.base.commons.exception.CommonError;
 import com.chen.sdeven.sparrow.commons.base.commons.exception.ErrorCode;
-import com.chen.sdeven.sparrow.commons.base.commons.result.Page;
-import com.chen.sdeven.sparrow.commons.base.commons.result.PageResult;
-import com.chen.sdeven.sparrow.commons.base.commons.result.Result;
 
 import java.util.List;
 
 /**
- * @Description 处理响应返回
- * @Author sdeven
- * @Create 11/18/20 16:42
-
+ * Response Processor
+ * @author sdeven
+ * @since 1.0.0
  */
 public abstract class Results {
 
@@ -40,10 +36,9 @@ public abstract class Results {
 	}
 
 	/**
-	 * 成功响应
-	 *
-	 * @param <T>
-	 * @return
+	 * Results of the response on success
+	 * @param #result <T>
+	 * @return Result<T>
 	 */
 	public static <T> Result<T> success(T result) {
 		Result<T> response = new Result<T>();
@@ -62,10 +57,9 @@ public abstract class Results {
 	}
 
 	/**
-	 * 成功响应
-	 *
-	 * @param <T>
-	 * @return
+	 * Successful response
+	 * @param #page {@link Page<T>}
+	 * @return <T>
 	 */
 	public static <T> PageResult<T> success(Page<T> page) {
 		PageResult<T> response = new PageResult<T>();
@@ -76,10 +70,9 @@ public abstract class Results {
 	}
 
 	/**
-	 * @Description 失败响应,并返回消息
-	 * @Date 11/18/20 16:49
-	 * @Param
-	 * @return
+	 * Failure response method
+	 * @param #message
+	 * @return <T>
 	 */
 	public static <T> Result<T> fail(String message) {
 		Result<T> response = new Result<T>();
@@ -87,30 +80,29 @@ public abstract class Results {
 		if (message == null || message.equals("")) {
 			response.setMessage(ErrorCode.BIZ_ERROR.getMessage());
 		} else {
-			// 唯一约束异常
+			/** Unique constraint exception */
 			response.setMessage(message);
 		}
 		return response;
 	}
 
 	/**
-	 * @Description 业务异常并返回自定义消息
-	 * @param message 错误码以及错误信息
-	 * @param <T>
-	 * @return
+	 * Business exceptions and return custom messages
+	 * @param #error {@link CommonError} Error codes and error messages
+	 * @return <T>
 	 */
-	public static <T> Result<T> fail(CommonError message) {
+	public static <T> Result<T> fail(CommonError error) {
 		Result<T> response = new Result<T>();
-		response.setMessage(message.getMessage());
-		response.setCode(message.getCode());
+		response.setMessage(error.getMessage());
+		response.setCode(error.getCode());
 		return response;
 	}
 
 	/**
-	 * @Description 业务异常并返回自定义消息
-	 * @param message 错误码以及错误信息
-	 * @param <T>
-	 * @return
+	 * Business exceptions and return custom messages
+	 * @param #error {@link CommonError} Error codes and error messages
+	 * @param #message Tip Message
+	 * @return <T>
 	 */
 	public static <T> Result<T> fail(CommonError error, String message) {
 		Result<T> response = new Result<T>();

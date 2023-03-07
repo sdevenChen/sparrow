@@ -26,8 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SnowflakeZkIdGenerator
- * @Date 2019/8/11
- * @Author  sdeven
+ * @author sdeven
  */
 @Slf4j
 public class SnowflakeZkIdGenerator implements IdGenerator {

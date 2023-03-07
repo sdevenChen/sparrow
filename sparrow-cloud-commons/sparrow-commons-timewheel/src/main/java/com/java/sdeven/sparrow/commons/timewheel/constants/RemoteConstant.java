@@ -16,10 +16,8 @@
 package com.java.sdeven.sparrow.commons.timewheel.constants;
 
 /**
- * RemoteConstant
- *
+ * Remote Constant
  * @author sdeven
- * @since 2020/3/17
  */
 public class RemoteConstant {
 

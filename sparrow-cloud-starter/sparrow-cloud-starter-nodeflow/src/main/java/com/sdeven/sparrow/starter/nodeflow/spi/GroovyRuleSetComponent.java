@@ -23,9 +23,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
-  * @Description Groovy 规则组件
-  * @Author sdeven
-  * @Create 12/12/20 10:18
+  * A Groovy-enabled parsing execution component
+  * @author sdeven
   */
 public class GroovyRuleSetComponent implements NfComponent {
    private static final String KEY_RULESET = "ruleset";

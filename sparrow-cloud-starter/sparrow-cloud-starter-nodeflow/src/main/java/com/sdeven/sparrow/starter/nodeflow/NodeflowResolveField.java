@@ -16,18 +16,19 @@
 package com.sdeven.sparrow.starter.nodeflow;
 
 /**
- * @Description 节点规则引擎解析支持字段
- * @Author sdeven
+ * Support fields for node rule engine parsing
+ * @author sdeven
  */
 public class NodeflowResolveField {
     /**
-     * 定义层，一级节点字段，indexs 负责定义输入输出、类型、校验正则
+     * Definition layer, first level node fields, "indexes"
+     * responsible for defining input and output, types, checksum regularity
      */
     public static final String KEY_INDEXS = "indexs";
     public static final String KEY_NODES = "nodes";
 
     /**
-     * 执行层，二级节点执行
+     * Execution level, secondary node execution
      */
     public static final String KEY_ID = "id";
     public static final String KEY_NEXT = "next";

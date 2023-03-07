@@ -22,8 +22,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 /**
  * ZookeeperProperties
  *
- * @Date 2020/2/17 下午4:37
- * @Author  sdeven
+ * @author sdeven
  */
 @Data
 @ConfigurationProperties("sdeven.commons.idgenerator")

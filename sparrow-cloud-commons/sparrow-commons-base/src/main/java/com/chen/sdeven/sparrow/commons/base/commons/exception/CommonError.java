@@ -20,9 +20,8 @@ import java.io.Serializable;
 import java.util.function.Supplier;
 
 /**
- * 通用错误接口,提供错误码定义与异常转换方法
- * @Author sdeven
- * @Create 12/9/20 09:12
+ * Generic error interface, providing error code definition and exception conversion methods
+ * @author sdeven
  */
 public interface CommonError extends Supplier<CommonException>, Serializable {
 

@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class WebExceptionHandler {
 
     /**
-     * 自定义公共异常
+     * Customized commons exceptions Processor
      */
     @ExceptionHandler(CommonException.class)
     public ResponseEntity<Result> handlerMException(CommonException me) {
@@ -43,7 +43,7 @@ public class WebExceptionHandler {
     }
 
     /**
-     * 绑定异常
+     * Binding Exception Processor
      */
     @ExceptionHandler(BindException.class)
     public ResponseEntity<Result> handlerException(BindException me) {
@@ -53,7 +53,7 @@ public class WebExceptionHandler {
     }
 
     /**
-     * 业务异常
+     * Business Exception Processor
      */
     @ExceptionHandler(BizServiceException.class)
     public ResponseEntity<Result> handlerException(BizServiceException me) {
@@ -63,7 +63,7 @@ public class WebExceptionHandler {
     }
 
     /**
-     * 系统异常
+     * System Exception Processor
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Result> handlerException(Exception me) {

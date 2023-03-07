@@ -16,8 +16,8 @@
 package com.sdeven.sparrow.starter.nodeflow;
 
 /**
- * @Description 脚本输入字段支持基本类型，String为缺省
- * @Author sdeven
+ * Script input fields support basic types, String is the default
+ * @author sdeven
  */
 public class NodeflowSupportFieldType {
     public static final String KEY_TYPE_NUMERIC = "NUMERIC";

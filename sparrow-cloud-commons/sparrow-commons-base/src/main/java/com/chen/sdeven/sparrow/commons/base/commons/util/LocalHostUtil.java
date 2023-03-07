@@ -23,9 +23,8 @@ import java.util.Enumeration;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @Description IP工具包
- * @Author sdeven
- * @Create 12/18/20 16:51
+ * A IP Address Toolkit
+ * @author sdeven
  */
 public class LocalHostUtil {
 
@@ -33,9 +32,8 @@ public class LocalHostUtil {
     private static String ipCode = "";
 
     /**
-     * @return String
-     * @Description 获取IpCode 不带"."
-     * @Date 12/18/20 16:48
+     * Get a code without "." IpCode
+     * @return IpCode String
      */
     public static String getIpCode() {
         if (ipCode != null && !ipCode.equals("")) {
@@ -58,10 +56,8 @@ public class LocalHostUtil {
     }
 
     /**
-     * @return
-     * @Description 取本机IP地址。配置：本机IP地址 -Djava.net.preferIPv4Stack=TRUE
-     * @Date 12/18/20 16:52
-     * @Param
+     * Takes the local IP address. Configuration: local IP address,Note: -Djava.net.preferIPv4Stack=TRUE
+     * @return Local IP String
      */
     @SuppressWarnings("rawtypes")
 	public static String getLocalHostAddress() {

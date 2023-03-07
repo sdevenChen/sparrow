@@ -40,8 +40,7 @@ import java.util.List;
 /**
  * ZookeeperAutoConfigurer
  *
- * @Date 2020/2/17 下午4:38
- * @Author sdeven
+ * @author sdeven
  */
 @Configuration
 @ConditionalOnClass(IdGenerator.class)
@@ -56,9 +55,9 @@ public class IdGeneratorAutoConfiguration {
 	public CuratorFramework zkClient() {
 
 		CuratorProperties curatorProperties = idGeneratorProperties.getCurator();
-		// 重试策略
+		/** Retry strategy */
 		RetryPolicy retryPolicy = new ExponentialBackoffRetry(curatorProperties.getBaseSleepTimeMs(), curatorProperties.getMaxRetries());
-		// 通过工厂创建Curator
+		/** Create Curator by Factory */
 		CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder().connectString(curatorProperties.getUrl()).retryPolicy(retryPolicy)
 				.sessionTimeoutMs(curatorProperties.getSessionTimeoutMs()).connectionTimeoutMs(curatorProperties.getConnectionTimeoutMs())
 				.namespace(curatorProperties.getNamespace());

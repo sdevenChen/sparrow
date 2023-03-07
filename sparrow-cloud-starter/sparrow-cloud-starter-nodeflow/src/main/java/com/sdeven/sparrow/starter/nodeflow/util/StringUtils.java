@@ -20,18 +20,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
-  * @Description 字符串处理工具类
-  * @Author sdeven
-  * @Create 12/12/20 10:20
+  * String processing tool class
+  * @author sdeven
   */
 public class StringUtils {
    /**
-    * @return
-    * @Description 字符串加密
-    * @Date 12/10/20 09:18
-    * @Param
+    * The encrypted string is MD5
+    * @return A md5 String
     */
-   public static String getMd5(String str) {
+   public static String encryptMd5(String str) {
        String returnStr = null;
        try {
            MessageDigest md = MessageDigest.getInstance("SHA");
@@ -54,10 +51,7 @@ public class StringUtils {
    }
 
    /**
-    * @return
-    * @Description byte 转 String
-    * @Date 12/10/20 09:18
-    * @Param
+    * byte To String
     */
    public static String byte2String(byte[] b) {
        String hash = "";
@@ -89,14 +83,6 @@ public class StringUtils {
        }
    }
 
-
-
-   /**
-    * 判断字符串是否为空
-    *
-    * @param str 字符串
-    * @return 是否为空
-    */
    public static boolean isEmpty(String str) {
        return (str == null || str.trim().length() == 0);
    }
@@ -115,14 +101,5 @@ public class StringUtils {
 
    public static boolean isNotEmptyOrNvlObj(Object str) {
        return !(str == null || str.toString().trim().length() == 0 || "null".equalsIgnoreCase(str.toString()));
-   }
-   public static void main(String[] args) {
-       BigInteger num = BigInteger.valueOf(200000L);
-       String str = baseString(num, 10);
-       System.out.println(str);
-
-       int i = 123;
-       java.text.DecimalFormat df = new java.text.DecimalFormat("0000000000");
-       System.out.println(df.format(i));
    }
 }

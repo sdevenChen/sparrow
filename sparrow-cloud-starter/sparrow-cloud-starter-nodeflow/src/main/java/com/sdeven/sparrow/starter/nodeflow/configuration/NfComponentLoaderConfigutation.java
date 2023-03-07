@@ -31,8 +31,8 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * @Description NfComponent 扩展组件过滤加载器
- * @Author sdeven
+ * Node extension component filter loader
+ * @author sdeven
  */
 @Configuration
 @ComponentScan(basePackages = "com.sdeven.sparrow",includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = NfComponent.class))
@@ -41,9 +41,8 @@ public class NfComponentLoaderConfigutation implements ApplicationListener<Conte
     private  ApplicationContext context;
 
     /**
-     * @Description  扩展实现组件bean扫描注册到Nodeflow
-     * @Date 12/11/20 10:08
-     * @Param ContextRefreshedEvent
+     * Extension to implement component bean scan registration to Nodeflow
+     * @param #cre {@link ContextRefreshedEvent}
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent cre) {
@@ -56,6 +55,7 @@ public class NfComponentLoaderConfigutation implements ApplicationListener<Conte
             }
         }
     }
+
     @Bean
     public SpringContextUtil springContextUtil(){
         SpringContextUtil springContextUtil = new SpringContextUtil();

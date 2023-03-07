@@ -19,9 +19,8 @@ import java.util.Map;
 
 
 /**
-  * @Description 组件父类
-  * @Author sdeven
-  * @Create 12/12/20 10:18
+  * NodeFlow generic component interface class
+  * @author sdeven
   */
 public interface NfComponent {
     void execute(Map<String, Object> node, Map<String, Object> ctx);

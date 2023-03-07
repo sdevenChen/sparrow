@@ -18,9 +18,8 @@ package com.sdeven.sparrow.starter.nodeflow.spi;
 import java.util.Map;
 
 /**
-  * @Description 延时组件
-  * @Author sdeven
-  * @Create 12/12/20 10:20
+  * Time delay components
+  * @author sdeven
   */
 public class WaitingComponent implements NfComponent {
 

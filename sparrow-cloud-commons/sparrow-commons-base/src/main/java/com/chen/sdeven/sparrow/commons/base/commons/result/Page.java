@@ -22,38 +22,36 @@ import java.util.List;
 import lombok.Data;
 
 /**
-  * @Description Page 输出对象
-  * @Author sdeven
-  * @Create 11/25/20 10:37
+  * Paging wrapped generic objects
+  * @author sdeven
   */
 @Data
 public class Page<T> implements Serializable{
 
-   /**
-    *
-    */
    private static final long serialVersionUID = -5056954732663923333L;
 
    /**
-    * 查询数据列表
+    * Query result List
     */
    public List<T> records = Collections.emptyList();
 
    /**
-    * 总记录数
+    * Total number of records
     */
    public long total = 0;
    /**
-    * 每页显示条数，默认 10
+    * Number of bars per page, default 10
     */
    public long size = 10;
 
    /**
-    * 当前页
+    * Current page
     */
    public long current = 1;
 
-   // 总页数
+   /**
+    * Total number of pages
+    */
    private long pages;
 
 }

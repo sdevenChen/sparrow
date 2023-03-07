@@ -26,17 +26,17 @@ import java.net.InetAddress;
 import java.util.List;
 
 /**
- * 时间工具
+ * A Time Tool
  *
  * @author sdeven
- * @since 2020/5/19
+ * @since 1.0.0
  */
 @Slf4j
 public class TimeUtils {
 
-    // NTP 授时服务器（阿里云 -> 交大 -> 水果）
+    /** NTP time grant server (Ali Cloud -> Jiaotong University -> Apple) */
     private static final List<String> NTP_SERVER_LIST = Lists.newArrayList("ntp.aliyun.com", "ntp.sjtu.edu.cn", "time1.apple.com");
-    // 最大误差 5S
+    /** Maximum error 5S */
     private static final long MAX_OFFSET = 5000;
 
     public static void check() throws TimeCheckException {
@@ -50,8 +50,8 @@ public class TimeUtils {
                     TimeInfo t = timeClient.getTime(InetAddress.getByName(address));
                     NtpV3Packet ntpV3Packet = t.getMessage();
                     log.info("[TimeUtils] use ntp server: {}, request result: {}", address, ntpV3Packet);
-                    // RFC-1305标准：https://tools.ietf.org/html/rfc1305
-                    // 忽略传输误差吧...也就几十毫秒的事（阿里云给力啊！）
+                    /** RFC-1305：https://tools.ietf.org/html/rfc1305 */
+                    /** Ignoring transmission errors in timing centers */
                     long local = System.currentTimeMillis();
                     long ntp = ntpV3Packet.getTransmitTimeStamp().getTime();
                     long offset =  local - ntp;

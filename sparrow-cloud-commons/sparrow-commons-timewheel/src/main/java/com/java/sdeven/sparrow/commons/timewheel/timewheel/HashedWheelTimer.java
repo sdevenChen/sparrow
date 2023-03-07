@@ -34,12 +34,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 /**
- * 时间轮定时器
- * 支持的最小精度：1ms（Thread.sleep本身不精确导致精度没法提高）
- * 最小误差：1ms，理由同上
- *
+ * Time Wheel Timer
+ * Minimum accuracy supported: 1ms (Thread.sleep itself is not accurate, so accuracy cannot be improved)
+ * Minimum error: 1ms
  * @author sdeven
- * @since 2020/4/2
+ * @since 1.0.0
  */
 @Slf4j
 public class HashedWheelTimer implements Timer {
@@ -62,16 +61,17 @@ public class HashedWheelTimer implements Timer {
     }
 
     /**
-     * 新建时间轮定时器
-     * @param tickDuration 时间间隔，单位毫秒（ms）
-     * @param ticksPerWheel 轮盘个数
-     * @param processThreadNum 处理任务的线程个数，0代表不启用新线程（如果定时任务需要耗时操作，请启用线程池）
+     * New Time Wheel Timer
+     * @param #tickDuration Time interval, in milliseconds
+     * @param #ticksPerWheel Number of reels
+     * Number of threads to process the task, 0 means no new threads are enabled (if the timed task requires a time-consuming operation, please enable the thread pool)
+     * @param #processThreadNum
      */
     public HashedWheelTimer(long tickDuration, int ticksPerWheel, int processThreadNum) {
 
         this.tickDuration = tickDuration;
 
-        // 初始化轮盘，大小格式化为2的N次，可以使用 & 代替取余
+        /** Initialize the wheel, format the size as N times 2, you can use & instead of remainder */
         int ticksNum = CommonUtils.formatSize(ticksPerWheel);
         wheel = new HashedWheelBucket[ticksNum];
         for (int i = 0; i < ticksNum; i++) {
@@ -79,7 +79,7 @@ public class HashedWheelTimer implements Timer {
         }
         mask = wheel.length - 1;
 
-        // 初始化执行线程池
+        /** Initialize the execution thread pool */
         if (processThreadNum <= 0) {
             taskProcessPool = null;
         }else {
@@ -88,12 +88,12 @@ public class HashedWheelTimer implements Timer {
             int core = Math.max(Runtime.getRuntime().availableProcessors(), processThreadNum);
             taskProcessPool = new ThreadPoolExecutor(core, 4 * core,
                     60, TimeUnit.SECONDS,
-                    queue, threadFactory, RejectedExecutionHandlerFactory.newCallerRun("PowerJobTimeWheelPool"));
+                    queue, threadFactory, RejectedExecutionHandlerFactory.newCallerRun("NewTimeWheelPool"));
         }
 
         startTime = System.currentTimeMillis();
 
-        // 启动后台线程
+        /** Start background threads */
         indicator = new Indicator();
         new Thread(indicator, "HashedWheelTimer-Indicator").start();
     }
@@ -104,13 +104,16 @@ public class HashedWheelTimer implements Timer {
         long targetTime = System.currentTimeMillis() + unit.toMillis(delay);
         HashedWheelTimerFuture timerFuture = new HashedWheelTimerFuture(task, targetTime);
 
-        // 直接运行到期、过期任务
+        /** Run expired and expired tasks directly */
         if (delay <= 0) {
             runTask(timerFuture);
             return timerFuture;
         }
 
-        // 写入阻塞队列，保证并发安全（性能进一步优化可以考虑 Netty 的 Multi-Producer-Single-Consumer队列）
+        /**
+         * Write to a blocking queue for concurrency safety
+         * (for further performance optimization consider Netty's Multi-Producer-Single-Consumer queue)
+         */
         waitingTasks.add(timerFuture);
         return timerFuture;
     }
@@ -129,22 +132,32 @@ public class HashedWheelTimer implements Timer {
     }
 
     /**
-     * 包装 TimerTask，维护预期执行时间、总圈数等数据
+     * Wrapping {@link TimerTask}, maintaining data such as expected execution time, total number of laps, etc.
      */
     private final class HashedWheelTimerFuture implements TimerFuture {
 
-        // 预期执行时间
+        /**
+         * Expected execution time
+         */
         private final long targetTime;
         private final TimerTask timerTask;
 
-        // 所属的时间格，用于快速删除该任务
+        /**
+         * The time frame to which you belong, for quick deletion of the task
+         */
         private HashedWheelBucket bucket;
-        // 总圈数
+        /**
+         * Total number of laps
+         */
         private long totalTicks;
-        // 当前状态 0 - 初始化等待中，1 - 运行中，2 - 完成，3 - 已取消
+        /**
+         *  Current status 0 - initialization pending, 1 - running, 2 - completed, 3 - cancelled
+         */
         private int status;
 
-        // 状态枚举值
+        /**
+         * task execution state enum
+         */
         private static final int WAITING = 0;
         private static final int RUNNING = 1;
         private static final int FINISHED = 2;
@@ -184,7 +197,7 @@ public class HashedWheelTimer implements Timer {
     }
 
     /**
-     * 时间格（本质就是链表，维护了这个时刻可能需要执行的所有任务）
+     * Time grid (essentially a chain table that maintains all the tasks that may need to be performed at this moment in time)
      */
     private final class HashedWheelBucket extends LinkedList<HashedWheelTimerFuture> {
 
@@ -192,7 +205,10 @@ public class HashedWheelTimer implements Timer {
 
             removeIf(timerFuture -> {
 
-                // processCanceledTasks 后外部操作取消任务会导致 BUCKET 中仍存在 CANCELED 任务的情况
+                /**
+                 * The cancellation of tasks by external actions
+                 * after processCanceledTasks will result in a situation where CANCELED tasks still exist in BUCKET
+                 */
                 if (timerFuture.status == HashedWheelTimerFuture.CANCELED) {
                     return true;
                 }
@@ -202,7 +218,9 @@ public class HashedWheelTimer implements Timer {
                     return true;
                 }
 
-                // 本轮直接调度
+                /**
+                 * This round of direct scheduling
+                 */
                 if (timerFuture.totalTicks <= currentTick) {
 
                     if (timerFuture.totalTicks < currentTick) {
@@ -210,7 +228,7 @@ public class HashedWheelTimer implements Timer {
                     }
 
                     try {
-                        // 提交执行
+                        // Commit and Execution
                         runTask(timerFuture);
                     }catch (Exception ignore) {
                     } finally {
@@ -235,7 +253,7 @@ public class HashedWheelTimer implements Timer {
     }
 
     /**
-     * 模拟指针转动
+     * Analog pointer rotation
      */
     private class Indicator implements Runnable {
 
@@ -249,13 +267,13 @@ public class HashedWheelTimer implements Timer {
 
             while (!stop.get()) {
 
-                // 1. 将任务从队列推入时间轮
+                // 1. Push tasks from the queue into the time wheel
                 pushTaskToBucket();
-                // 2. 处理取消的任务
+                // 2. Processing cancelled tasks
                 processCanceledTasks();
-                // 3. 等待指针跳向下一刻
+                // 3. Wait for the pointer to jump to the next moment
                 tickTack();
-                // 4. 执行定时任务
+                // 4. Execute timed tasks
                 int currentIndex = (int) (tick & mask);
                 HashedWheelBucket bucket = wheel[currentIndex];
                 bucket.expireTimerTasks(tick);
@@ -266,11 +284,11 @@ public class HashedWheelTimer implements Timer {
         }
 
         /**
-         * 模拟指针转动，当返回时指针已经转到了下一个刻度
+         * Simulates pointer rotation, when returning the pointer has turned to the next scale
          */
         private void tickTack() {
 
-            // 下一次调度的绝对时间
+            /** Absolute time of the next dispatch */
             long nextTime = startTime + (tick + 1) * tickDuration;
             long sleepTime = nextTime - System.currentTimeMillis();
 
@@ -283,7 +301,7 @@ public class HashedWheelTimer implements Timer {
         }
 
         /**
-         * 处理被取消的任务
+         * Processing cancelled tasks
          */
         private void processCanceledTasks() {
             while (true) {
@@ -291,7 +309,9 @@ public class HashedWheelTimer implements Timer {
                 if (canceledTask == null) {
                     return;
                 }
-                // 从链表中删除该任务（bucket为null说明还没被正式推入时间格中，不需要处理）
+                /**
+                 * Remove the task from the chain table (a bucket of null means it has not been officially pushed into the time frame and does not need to be processed
+                 */
                 if (canceledTask.bucket != null) {
                     canceledTask.bucket.remove(canceledTask);
                 }
@@ -299,7 +319,7 @@ public class HashedWheelTimer implements Timer {
         }
 
         /**
-         * 将队列中的任务推入时间轮中
+         * Push the tasks in the queue into the time wheel
          */
         private void pushTaskToBucket() {
 
@@ -309,17 +329,18 @@ public class HashedWheelTimer implements Timer {
                     return;
                 }
 
-                // 总共的偏移量
+                /** Total Offset */
                 long offset = timerTask.targetTime - startTime;
-                // 总共需要走的指针步数
+                /** Total number of pointer steps to be taken */
                 timerTask.totalTicks = offset / tickDuration;
-                // 取余计算 bucket index
+                /** Residual calculation bucket index */
                 int index = (int) (timerTask.totalTicks & mask);
                 HashedWheelBucket bucket = wheel[index];
 
-                // TimerTask 维护 Bucket 引用，用于删除该任务
+                /**
+                 * {@link TimerTask} Maintains a Bucket reference for deleting the task
+                 */
                 timerTask.bucket = bucket;
-
                 if (timerTask.status == HashedWheelTimerFuture.WAITING) {
                     bucket.add(timerTask);
                 }

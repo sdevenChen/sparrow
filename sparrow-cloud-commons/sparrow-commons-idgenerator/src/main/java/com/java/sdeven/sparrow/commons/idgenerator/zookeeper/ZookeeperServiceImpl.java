@@ -26,10 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ZookeeperServiceImpl
- *
- * @Date 2020/2/17 下午5:21
- * @Author  sdeven
+ * A zookeeper node management implementation {@link CreateMode}
+ * @author sdeven
  */
 @Slf4j
 public class ZookeeperServiceImpl implements ZookeeperService {
@@ -53,7 +51,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Override
     public String createNode(CreateMode mode, String path) {
         try {
-            // 递归创建所需父节点
+            /* Recursively create the required parent node */
             return zkClient.create().creatingParentsIfNeeded().withMode(mode).forPath(path);
         } catch (Exception e) {
             log.error("createNode error...", e);
@@ -64,7 +62,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Override
     public String createNode(CreateMode mode, String path, String nodeData) {
         try {
-            // 创建节点，关联数据
+            /* Create nodes and associate data */
             return zkClient.create().creatingParentsIfNeeded().withMode(mode)
                     .forPath(path,nodeData.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
@@ -75,7 +73,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Override
     public void setNodeData(String path, String nodeData) {
         try {
-            // 设置节点数据
+            /** Set node data */
             zkClient.setData().forPath(path, nodeData.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             log.error("setNodeData error...", e);
@@ -85,7 +83,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     @Override
     public String getNodeData(String path) {
         try {
-            // 数据读取和转换
+            /** Data reading and transformation */
             zkClient.sync();
             byte[] dataByte = zkClient.getData().forPath(path) ;
             String data = new String(dataByte,StandardCharsets.UTF_8) ;
@@ -102,7 +100,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     public List<String> getNodeChild(String path) {
         List<String> nodeChildDataList = new ArrayList<>();
         try {
-            // 节点下数据集
+            /** Node down dataList */
             nodeChildDataList = zkClient.getChildren().forPath(path);
         } catch (Exception e) {
             log.error("getNodeChild error...", e);
@@ -114,10 +112,10 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     public void deleteNode(String path, Boolean recursive) {
         try {
             if(recursive) {
-                // 递归删除节点
+                /* Recursive node deletion */
                 zkClient.delete().guaranteed().deletingChildrenIfNeeded().forPath(path);
             } else {
-                // 删除单个节点
+                /* Delete a single node */
                 zkClient.delete().guaranteed().forPath(path);
             }
         } catch (Exception e) {
@@ -127,7 +125,7 @@ public class ZookeeperServiceImpl implements ZookeeperService {
     }
     @Override
     public InterProcessReadWriteLock getReadWriteLock(String path) {
-        // 写锁互斥、读写互斥
+        /* Write lock mutex, read-write mutex */
         return new InterProcessReadWriteLock(zkClient, path);
     }
 }

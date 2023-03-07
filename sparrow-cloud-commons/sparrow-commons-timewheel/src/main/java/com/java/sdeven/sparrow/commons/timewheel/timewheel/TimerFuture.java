@@ -17,9 +17,8 @@ package com.java.sdeven.sparrow.commons.timewheel.timewheel;
 
 /**
  * TimerFuture
- *
  * @author sdeven
- * @since 2020/4/3
+ * @since 1.0.0
  */
 public interface TimerFuture {
 

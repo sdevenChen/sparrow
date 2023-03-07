@@ -34,9 +34,8 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 /**
- * @Description com.sdeven.sparrow.starter.nodeflow 执行引擎
- * @Author sdeven
- * @Create 12/12/20 10:09
+ * NodeFlow Execution Engine
+ * @author sdeven
  */
 @Slf4j
 public class Nodeflow {
@@ -52,16 +51,14 @@ public class Nodeflow {
     }
 
     private JsonObject nf = null;
-    //输入输出
+    //Input and Output
     private JsonArray indexs = null;
-    //节点集
+    //Node Sets
     private JsonArray nodes = null;
     private Map<String, Object> ctx;
-    //自定义开始执行节点
+    //Custom start execution node
     private String curNode = null;
-    //输出
     private Map<String, Object> output;
-    //输入
     private Map<String, Object> input;
 
     public Nodeflow(String nfjson) {
@@ -73,10 +70,8 @@ public class Nodeflow {
     }
 
     /**
-     * @Description  注册组件
-     * @Date 12/12/20 14:12
-     * @Param NfComponent nfc
-     * @return void
+     * Register Component
+     * @param #nfc {@link NfComponent}
      */
     public static void register(NfComponent nfc) {
         if (componentExists(nfc)) {
@@ -85,19 +80,17 @@ public class Nodeflow {
         COMPONENTS.put(nfc.spiId(), nfc);
     }
     /**
-     * @Description  判断组件是否存在
-     * @Date 12/12/20 14:12
-     * @Param
-     * @return
+     * Determine if the component exists
+     * @param #nfc {@link NfComponent}
+     * @return The state of the component presence
      */
-    public static boolean componentExists(NfComponent c) {
-        return COMPONENTS.containsKey(c.spiId()) || INIT_COMPONENTS.containsKey(c.spiId());
+    public static boolean componentExists(NfComponent nfc) {
+        return COMPONENTS.containsKey(nfc.spiId()) || INIT_COMPONENTS.containsKey(nfc.spiId());
     }
 
     /**
-     * @Description  通过spiId 查询组件
-     * @Date 12/12/20 14:11
-     * @Param
+     * Query components by spiId
+     * @param #spiId Class or Method Id String
      * @return
      */
     public static NfComponent findComponent(String spiId) {
@@ -113,9 +106,8 @@ public class Nodeflow {
     }
 
     /**
-     * @Description  执行脚本，输入参数
-     * @Date 12/12/20 14:12
-     * @Param
+     * Execute the script and enter the parameters
+     * @param
      * @return
      */
     public void execute(Map<String, Object> ctx) throws NodeflowException {
@@ -130,9 +122,7 @@ public class Nodeflow {
         }
     }
     /**
-     * @Description  获取输出
-     * @Date 12/12/20 14:14
-     * @Param void
+     * Get output
      * @return Map<String, Object>
      */
     public Map<String, Object> getOutput() {
@@ -145,9 +135,7 @@ public class Nodeflow {
     }
 
     /**
-     * @Description  获取输入
-     * @Date 12/12/20 14:14
-     * @Param void
+     * Get input Map set
      * @return Map<String, Object>
      */
     public Map<String, Object> getInput() {
@@ -164,10 +152,7 @@ public class Nodeflow {
         return item == null || item.isJsonNull() ? def : item.getAsString();
     }
     /**
-     * @Description  输入类型验证
-     * @Date 12/12/20 14:15
-     * @Param String type, Object val
-     * @return Object
+     * Input Type Verification
      */
     private static Object parseType(String type, Object val) {
         switch (type.toUpperCase()) {
@@ -187,10 +172,9 @@ public class Nodeflow {
         return val;
     }
     /**
-     * @Description  获取输入输出
-     * @Date 12/12/20 14:16
-     * @Param Map<String, Object> ctx
-     * @return List<Map<String, Object>>
+     * Get input and output
+     * @param #ctx
+     * @return Validated and parsed map set
      */
     public List<Map<String, Object>> fetchInputOutput(Map<String, Object> ctx) throws NodeflowException {
         Map<String, Object> input = new HashMap<>(1);
@@ -211,13 +195,13 @@ public class Nodeflow {
             if ((mode & 1) == 1) {
                 if (opt == 0) {
                     if (val == null || EMPTY_STRING.equals(val.toString().trim())) {
-                        log.info("输入参数不能为空,idx:{}", idx);
+                        log.info("Input parameters cannot be empty,idx:{}", idx);
                         throw new IllegalArgumentException(idx + "-" + idxName);
                     }
                 }
                 if (pattern != null && !pattern.equals(EMPTY_STRING) && val != null && !EMPTY_STRING.equals(val.toString().trim())) {
                     if (!val.toString().matches(pattern)) {
-                        log.info("输入参数验证不通过,idx:{}，patternName:{}", idx, patternName);
+                        log.info("There is a parameter problem during validation and it is rejected,idx:{}，patternName:{}", idx, patternName);
                         throw new IllegalArgumentException(idx + "-" + patternName);
                     }
                 }
@@ -233,9 +217,8 @@ public class Nodeflow {
         return list;
     }
     /**
-     * @Description  获取下一个执行节点
-     * @Date 12/12/20 14:16
-     * @Param  JsonObject node
+     * Get the next execution node
+     * @param #node {@link JsonObject}
      * @return void
      */
     private void next(JsonObject node) throws NodeflowException {
@@ -287,15 +270,15 @@ public class Nodeflow {
         }
     }
     /**
-     * @Description  查询节点
-     * @Date 12/12/20 14:17
-     * @Param String id, JsonArray arr
+     * Query Node
+     * @param #id
+     * @param #ja {@link JsonArray}
      * @return JsonObject
      */
-    private static JsonObject findNode(String id, JsonArray arr) {
+    private static JsonObject findNode(String id, JsonArray ja) {
         JsonObject item = null;
-        for (int i = 0; i < arr.size(); i++) {
-            item = arr.get(i).getAsJsonObject();
+        for (int i = 0; i < ja.size(); i++) {
+            item = ja.get(i).getAsJsonObject();
             if (id.equals(item.get(NodeflowResolveField.KEY_ID).getAsString())) {
                 return item;
             }
@@ -303,38 +286,28 @@ public class Nodeflow {
         return null;
     }
     /**
-     * @Description  获取流程执行过程性参数
-     * @Date 12/12/20 14:18
-     * @Param
-     * @return
+     * Get process parameters for process execution
      */
     public Map<String, Object> getCtx() {
         return ctx;
     }
     /**
-     * @Description  获取自定义开始节点
-     * @Date 12/12/20 14:17
-     * @Param void
+     * Get custom start node
      * @return String
      */
     public String getCurNode() {
         return curNode;
     }
     /**
-     * @Description  设置自定义开始节点
-     * @Date 12/12/20 14:17
-     * @Param void
-     * @return String
+     * Set custom start node
+     * @param #curNode
      */
     public void setCurNode(String curNode) {
         this.curNode = curNode;
     }
 
     /**
-     * @Description  清除组件
-     * @Date 12/12/20 14:18
-     * @Param void
-     * @return void
+     * clean all components
      */
     public static void clearComponents() {
         COMPONENTS.clear();

@@ -17,6 +17,7 @@ package com.chen.sdeven.sparrow.commons.base.commons.exception;
 
 
 import com.google.common.base.Throwables;
+import com.sun.xml.internal.ws.api.model.CheckedException;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -24,17 +25,20 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import javax.annotation.Nullable;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
- * 关于异常的工具类.
- * 1. Checked/Uncheked及Wrap(如ExecutionException)的转换.
- * 2. 打印Exception的辅助函数.
- * 3. StackTrace性能优化相关，尽量使用静态异常避免异常生成时获取StackTrace，及打印StackTrace的消耗
- * @Author: sdeven
- * @Create 2021/1/5
+ * A tool class for exception handling.
+ * <p>Checked and Uncheked({@link ExecutionException}) and Wrap conversions.
+ * <p>Helper functions for printing Exception.
+ * <p>StackTrace performance optimization related, try to use static exceptions
+ * to avoid exception generation to obtain StackTrace, and the consumption of printing StackTrace
+ * @author sdeven
  */
 public abstract class ExceptionUtil {
 
@@ -76,16 +80,19 @@ public abstract class ExceptionUtil {
     private static final StackTraceElement[] EMPTY_STACK_TRACE = new StackTraceElement[0];
 
     /**
-     * Checked/Uncheked及Wrap(如ExecutionException)的转换
-     * 将CheckedException转换为RuntimeException重新抛出, 可以减少函数签名中的CheckExcetpion定义.
+     * Checked/Uncheked and Wrap(Case:ExecutionException) conversions
+     * Convert {@link CheckedException} to {@link RuntimeException} and re-throw it,
+     * which reduces the definition of  {@link CheckedException} in the function signature.
      * <p>
-     * CheckedException会用UndeclaredThrowableException包裹，RunTimeException和Error则不会被转变.
+     *  {@link CheckedException} will be wrapped with {@link UndeclaredThrowableException},
+     *  {@link RuntimeException} and Error will not be transformed.
      * <p>
      * from Commons Lange 3.5 ExceptionUtils.
      * <p>
-     * 虽然unchecked()里已直接抛出异常，但仍然定义返回值，方便欺骗Sonar。因此本函数也改变了一下返回值
+     * Although unchecked() already throws an exception directly,
+     * it still defines the return value to make it easier to cheat Sonar, so this function also changes the return value a bit
      * <p>
-     * 示例代码:
+     * Case:
      * <p>
      * <pre>
      * try{ ... }catch(Exception e){ throw unchecked(t); }
@@ -105,13 +112,14 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 如果是著名的包裹类，从cause中获得真正异常. 其他异常则不变.
+     * If it is a well-known wrapper class, get the real exception from cause. Other exceptions remain the same.
      * <p>
-     * Future中使用的ExecutionException 与 反射时定义的InvocationTargetException， 真正的异常都封装在Cause中
+     * The {@link ExecutionException} used in Future is the same as the {@link InvocationTargetException} defined in Reflection,
+     * the real exception is encapsulated in Cause
      * <p>
-     * 前面 unchecked() 使用的UncheckedException同理.
+     * Front unchecked() uses the same  {@link UncheckedException}.
      * <p>
-     * from Quasar and Tomcat's ExceptionUtils
+     * from Quasar and Tomcat's {@link ExceptionUtils}
      */
     public static Throwable unwrap(Throwable t) {
         if (t instanceof java.util.concurrent.ExecutionException
@@ -123,7 +131,7 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 组合unchecked与unwrap的效果
+     * Combining the effects of unchecked and unwrap
      */
     public static RuntimeException uncheckedAndWrap(Throwable t) {
 
@@ -139,9 +147,9 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 自定义一个CheckedException的wrapper.
+     * Customize a {@link CheckedException} wrapper.
      * <p>
-     * 返回Message/Cause时, 将返回内层Exception的信息.
+     * When Message/Cause is returned, the inner Exception message is returned.
      */
     public static class UncheckedException extends RuntimeException {
 
@@ -157,11 +165,10 @@ public abstract class ExceptionUtil {
         }
     }
 
-    ////// 输出内容相关 //////
+    // Output content
 
     /**
-     * 将StackTrace[]转换为String, 供Logger或e.printStackTrace()外的其他地方使用.
-     *
+     * Convert StackTrace[] to String for use in places other than Logger or e.printStackTrace().
      * @see Throwables#getStackTraceAsString(Throwable)
      */
     public static String stackTraceText(Throwable t) {
@@ -169,7 +176,7 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 判断异常是否由某些底层的异常引起.
+     * Determine if the exception is caused by some underlying exception.
      */
     @SuppressWarnings("unchecked")
     public static boolean isCausedBy(Throwable t, Class<? extends Exception>... causeExceptionClasses) {
@@ -187,10 +194,8 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 拼装 短异常类名: 异常信息.
-     * <p>
-     * 与Throwable.toString()相比使用了短类名
-     *
+     * Assembling short exception class names (exception information)
+     * Short class name compared to Throwable.toString()
      * @see ExceptionUtil(Throwable)
      */
     public static String toStringWithShortName(@Nullable Throwable t) {
@@ -198,7 +203,7 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 拼装 短异常类名: 异常信息 <-- RootCause的短异常类名: 异常信息
+     * Putting together short exception class names (Short exception class name for RootCause: Exception Info -> Exception Info)
      */
     public static String toStringWithRootCause(@Nullable Throwable t) {
         if (t == null) {
@@ -210,39 +215,41 @@ public abstract class ExceptionUtil {
         Throwable cause = getRootCause(t);
 
         StringBuilder sb = new StringBuilder(128).append(clsName).append(": ").append(message);
-        if (cause != t) { // NOSONAR
+        if (cause != t) {
             sb.append("; <---").append(toStringWithShortName(cause));
         }
 
         return sb.toString();
     }
 
-    /////////// StackTrace 性能优化相关////////
+    // StackTrace Performance optimization processing methods //
 
     /**
-     * from Netty, 为静态异常设置StackTrace.
+     * from Netty,Set StackTrace for static exception.
      * <p>
-     * 对某些已知且经常抛出的异常, 不需要每次创建异常类并很消耗性能的并生成完整的StackTrace. 此时可使用静态声明的异常.
+     * For some known and frequently thrown exceptions,
+     * there is no need to create an exception class each time and generate a full StackTrace.
+     * Static declared exceptions can be used in this case.
      * <p>
-     * 如果异常可能在多个地方抛出，使用本函数设置抛出的类名和方法名.
+     * If the exception may be thrown in more than one place,
+     * use this function to set the name of the class and method to be thrown.
      * <p>
-     * <pre>
-     * private static RuntimeException TIMEOUT_EXCEPTION = ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),
-     * 		MyClass.class, "mymethod");
-     * </pre>
+     * Note: private static RuntimeException TIMEOUT_EXCEPTION = ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),MyClass.class, "mymethod");
+     *
      */
     public static <T extends Throwable> T setStackTrace(T exception, Class<?> throwClass, String throwClazz) {
         exception.setStackTrace(
                 new StackTraceElement[]{new StackTraceElement(throwClass.getName(), throwClazz, null, -1)});
-        return exception;// NOSONAR
+        return exception;
     }
 
     /**
-     * 清除StackTrace. 假设StackTrace已生成, 但把它打印出来也有不小的消耗.
+     * Clear the StackTrace. Assuming the StackTrace has been generated, printing it out can be quite costly.
      * <p>
-     * 如果不能控制StackTrace的生成，也不能控制它的打印端(如logger)，可用此方法暴力清除Trace.
+     * If you cannot control the generation of StackTrace and its print side (e.g. logger),
+     * you can use this method to brute force the Trace.
      * <p>
-     * 但Cause链依然不能清除, 只能清除每一个Cause的StackTrace.
+     * But the Cause chain still cannot be cleared, only the {@link StackTrace} of each Cause can be cleared.
      */
     public static <T extends Throwable> T clearStackTrace(T exception) {
         Throwable cause = exception;
@@ -250,15 +257,15 @@ public abstract class ExceptionUtil {
             cause.setStackTrace(EMPTY_STACK_TRACE);
             cause = cause.getCause();
         }
-        return exception;// NOSONAR
+        return exception;
     }
 
     /**
-     * 适用于异常信息需要变更的情况, 可通过clone()，不经过构造函数（也就避免了获得StackTrace）地从之前定义的静态异常中克隆，再设定新的异常信息
-     * <p>
-     * private static CloneableException TIMEOUT_EXCEPTION = new CloneableException("Timeout") .setStackTrace(My.class,
-     * "hello"); ...
-     * <p>
+     * For cases where exception information needs to be changed,
+     * clone() can be used to clone from a previously defined static exception
+     * without going through the constructor (thus avoiding the need to get a StackTrace)
+     * and set the new exception information.
+     * <p>Note: private static CloneableException TIMEOUT_EXCEPTION = new CloneableException("Timeout") .setStackTrace(My.class,"hello");
      * throw TIMEOUT_EXCEPTION.clone("Timeout for 40ms");
      */
     public static class CloneableException extends Exception implements Cloneable {
@@ -295,7 +302,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数，定义静态异常时使用
+         * Convenience function, used when defining static exceptions
          */
         public CloneableException setStackTrace(Class<?> throwClazz, String throwMethod) {
             ExceptionUtil.setStackTrace(this, throwClazz, throwMethod);
@@ -303,7 +310,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数, clone并重新设定Message
+         * Handy function to clone and reset Message
          */
         public CloneableException clone(String message) {
             CloneableException newException = this.clone();
@@ -312,7 +319,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数, 重新设定Message
+         * Convenience functions, reset A Message
          */
         public CloneableException setMessage(String message) {
             this.message = message;
@@ -321,7 +328,10 @@ public abstract class ExceptionUtil {
     }
 
     /**
-     * 适用于异常信息需要变更的情况, 可通过clone()，不经过构造函数（也就避免了获得StackTrace）地从之前定义的静态异常中克隆，再设定新的异常信息
+     * For cases where exception information needs to be changed,
+     * clone() can be used to clone from a previously
+     * defined static exception without going through the constructor
+     * (thus avoiding the need to get a StackTrace) and set the new exception information.
      *
      * @see CloneableException
      */
@@ -349,7 +359,7 @@ public abstract class ExceptionUtil {
         public CloneableRuntimeException clone() {
             try {
                 return (CloneableRuntimeException) super.clone();
-            } catch (CloneNotSupportedException e) { // NOSONAR
+            } catch (CloneNotSupportedException e) {
                 return null;
             }
         }
@@ -360,7 +370,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数，定义静态异常时使用
+         * Convenience function, used when defining static exceptions
          */
         public CloneableRuntimeException setStackTrace(Class<?> throwClazz, String throwMethod) {
             ExceptionUtil.setStackTrace(this, throwClazz, throwMethod);
@@ -368,7 +378,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数, clone并重新设定Message
+         * Convenience function, clone and reset Message
          */
         public CloneableRuntimeException clone(String message) {
             CloneableRuntimeException newException = this.clone();
@@ -377,7 +387,7 @@ public abstract class ExceptionUtil {
         }
 
         /**
-         * 简便函数, 重新设定Message
+         * Convenience function, Reset Message
          */
         public CloneableRuntimeException setMessage(String message) {
             this.message = message;

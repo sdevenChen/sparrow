@@ -20,9 +20,8 @@ import groovy.lang.Script;
 import java.lang.reflect.Method;
 
 /**
-  * @Description 定义自己的表达式解析类
-  * @Author sdeven
-  * @Create 12/11/20 10:06
+  * Custom expression parsing processor
+  * @author sdeven
   */
 public class MyBasicScript extends Script {
    @Override
