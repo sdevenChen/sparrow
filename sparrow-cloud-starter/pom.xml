@@ -18,6 +18,7 @@
         <module>sparrow-cloud-starter-idgenerator</module>
         <module>sparrow-cloud-starter-nodeflow</module>
         <module>sparrow-cloud-starter-mybatisplus</module>
+        <module>sparrow-cloud-starter-dubbo</module>
     </modules>
 
 

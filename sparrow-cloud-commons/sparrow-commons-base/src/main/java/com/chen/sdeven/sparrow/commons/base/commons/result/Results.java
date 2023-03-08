@@ -111,4 +111,38 @@ public abstract class Results {
 		return response;
 	}
 
+	/**
+	 * Failure to respond-Service timeout
+	 */
+	public static <T> Result<T> failServiceRemoting() {
+		Result<T> response = new Result<>();
+		response.setCode(ErrorCode.RPC_SERVICE_ERROR.getCode());
+		response.setMessage(ErrorCode.RPC_SERVICE_ERROR.getMessage());
+		response.setData(null);
+		return response;
+	}
+
+	/**
+	 * Failure to respond - service timeout
+	 */
+	public static <T> Result<T> failServiceTimeOut() {
+		Result<T> response = new Result<T>();
+		response.setCode(ErrorCode.RPC_SERVICE_TIMEOUT.getCode());
+		response.setMessage(ErrorCode.RPC_SERVICE_TIMEOUT.getMessage());
+		response.setData(null);
+		return response;
+	}
+
+	/**
+	 * Failure response-services are invoked in an abnormal state
+	 */
+	public static <T> Result<T> failServiceIllegalState() {
+		Result<T> response = new Result<T>();
+		response.setCode(ErrorCode.RPC_SERVICE_ILLEGAL_STATE.getCode());
+		response.setMessage(ErrorCode.RPC_SERVICE_ILLEGAL_STATE.getMessage());
+		response.setData(null);
+		return response;
+	}
+
+
 }

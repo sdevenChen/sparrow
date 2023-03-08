@@ -25,7 +25,13 @@ public enum ErrorCode implements CommonError {
     SUCCESS(0, "SUCCESS"),
     BIZ_ERROR(2, "BUSINESS_ERROR"),
     UNKNOWN(3, "UNKNOWN_ERROR"),
-    BASE_ERROR(-1, "GENERAL_COMPONENT_ERROR");
+    BASE_ERROR(-1, "GENERAL_COMPONENT_ERROR"),
+    PARAMETER_REQUIRED(507, "parameter error"),
+    VALIDATE_FAIL(506, "parameter checksum failure"),
+    RPC_SERVICE_ERROR(500, "parameter verification failure"),
+    RPC_SERVICE_TIMEOUT(500, "remote service response timeout"),
+    RPC_SERVICE_ILLEGAL_STATE(500, "Error encountered during remote service execution");
+
 
     int code = -1;
     String message = null;
