@@ -15,10 +15,11 @@
     <packaging>pom</packaging>
 
     <modules>
+       <module>sparrow-commons-base</module>
        <module>sparrow-commons-util</module>
        <module>sparrow-commons-idgenerator</module>
        <module>sparrow-commons-timewheel</module>
-       <module>sparrow-commons-base</module>
+       <module>sparrow-commons-context</module>
     </modules>
 
     <dependencyManagement>
