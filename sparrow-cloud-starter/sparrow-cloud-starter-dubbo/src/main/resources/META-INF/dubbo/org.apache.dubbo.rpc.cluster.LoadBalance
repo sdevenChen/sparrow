@@ -1,1 +1,1 @@
-devNfcLB=com.sdeven.sparrow.starter.autoconfigure.dubbo.consumer.NFCLoadBalance
+devNfcLB=NFCLoadBalance

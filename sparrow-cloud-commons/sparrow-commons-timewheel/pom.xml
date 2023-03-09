@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.chen.sdeven.sparrow</groupId>
+        <groupId>com.sdeven.sparrow</groupId>
         <artifactId>sparrow-cloud-commons</artifactId>
         <version>${revision}</version>
     </parent>
@@ -23,7 +23,7 @@
             <artifactId>commons-net</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.chen.sdeven.sparrow</groupId>
+            <groupId>com.sdeven.sparrow</groupId>
             <artifactId>sparrow-commons-util</artifactId>
             <version>${revision}</version>
         </dependency>

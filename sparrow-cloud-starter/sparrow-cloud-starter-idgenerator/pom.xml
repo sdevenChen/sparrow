@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.chen.sdeven.sparrow</groupId>
+        <groupId>com.sdeven.sparrow</groupId>
         <artifactId>sparrow-cloud-starter</artifactId>
         <version>${revision}</version>
     </parent>
@@ -15,7 +15,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.chen.sdeven.sparrow</groupId>
+            <groupId>com.sdeven.sparrow</groupId>
             <artifactId>sparrow-commons-idgenerator</artifactId>
             <version>${revision}</version>
         </dependency>

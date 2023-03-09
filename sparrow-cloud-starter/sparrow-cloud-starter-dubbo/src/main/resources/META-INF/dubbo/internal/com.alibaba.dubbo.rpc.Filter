@@ -1,5 +1,5 @@
-consumerExceptionFilter=com.sdeven.sparrow.starter.autoconfigure.dubbo.consumer.ConsumerExceptionFilter
-providerExceptionFilter=com.sdeven.sparrow.starter.autoconfigure.dubbo.provider.ProviderExceptionFilter
-providerValida=com.sdeven.sparrow.starter.autoconfigure.dubbo.provider.valida.ValidationFilter
-consumerContext=com.sdeven.sparrow.starter.autoconfigure.dubbo.consumer.CustomerContextFilter
-providerContext=com.sdeven.sparrow.starter.autoconfigure.dubbo.provider.ProviderContextFilter
+consumerExceptionFilter=ConsumerExceptionFilter
+providerExceptionFilter=ProviderExceptionFilter
+providerValida=ValidationFilter
+consumerContext=CustomerContextFilter
+providerContext=ProviderContextFilter

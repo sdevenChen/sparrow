@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.chen.sdeven.sparrow</groupId>
+        <groupId>com.sdeven.sparrow</groupId>
         <artifactId>sparrow</artifactId>
         <version>${revision}</version>
     </parent>
@@ -18,14 +18,16 @@
        <module>sparrow-commons-base</module>
        <module>sparrow-commons-util</module>
        <module>sparrow-commons-idgenerator</module>
+       <module>sparrow-commons-mapstruct</module>
        <module>sparrow-commons-timewheel</module>
        <module>sparrow-commons-context</module>
+       <module>sparrow-commons-mybatis</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.chen.sdeven.sparrow</groupId>
+                <groupId>com.sdeven.sparrow</groupId>
                 <artifactId>sparrow-cloud-dependence</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
                 <type>pom</type>
