@@ -20,6 +20,7 @@
         <module>sparrow-cloud-starter-mybatisplus</module>
         <module>sparrow-cloud-starter-dubbo</module>
         <module>sparrow-cloud-starter-import</module>
+        <module>sparrow-cloud-starter-eventbus</module>
     </modules>
 
 

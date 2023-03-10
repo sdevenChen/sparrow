@@ -31,6 +31,16 @@
                 <artifactId>sparrow-commons-timewheel</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sdeven.sparrow</groupId>
+                <artifactId>sparrow-commons-context</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sdeven.sparrow</groupId>
+                <artifactId>sparrow-commons-eventbus</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

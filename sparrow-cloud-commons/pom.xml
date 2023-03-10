@@ -22,6 +22,7 @@
        <module>sparrow-commons-timewheel</module>
        <module>sparrow-commons-context</module>
        <module>sparrow-commons-mybatis</module>
+       <module>sparrow-commons-eventbus</module>
     </modules>
 
     <dependencyManagement>

@@ -20,7 +20,6 @@ import com.sdeven.sparrow.commons.base.commons.exception.BizServiceException;
 import com.sdeven.sparrow.commons.base.commons.exception.CommonError;
 import com.sdeven.sparrow.starter.dubbo.util.LogingUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.dubbo.common.constants.CommonConstants;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.rpc.Filter;
@@ -62,25 +61,25 @@ public class ConsumerExceptionFilter implements Filter, Filter.Listener {
     @Override
     public void onResponse(Result provider, Invoker<?> invoker, Invocation invocation) {
 
-        if (provider.hasException() && GenericService.class == invoker.getInterface() &&
-                (provider.getException() instanceof com.alibaba.dubbo.rpc.service.GenericException || provider.getException() instanceof GenericException)) {
+        boolean isGenericException = provider.hasException()
+                                    && GenericService.class == invoker.getInterface() &&
+                                    (provider.getException() instanceof com.alibaba.dubbo.rpc.service.GenericException
+                                    || provider.getException() instanceof GenericException);
+        if (isGenericException) {
             Map<String,Object> exception = BeanUtil.beanToMap(provider.getException());
             String exceptionClass = (String) exception.get("exceptionClass");
             String exceptionMessage = (String) exception.get("exceptionMessage");
+            provider.setException(new BizServiceException(new CommonError() {
+                @Override
+                public int getCode() {
+                    return Integer.parseInt(exceptionMessage);
+                }
 
-            if ("com.zxy.common.base.exception.UnprocessableException".equals(exceptionClass) && NumberUtils.isNumber(exceptionMessage)) {
-                provider.setException(new BizServiceException(new CommonError() {
-                    @Override
-                    public int getCode() {
-                        return Integer.parseInt(exceptionMessage);
-                    }
-
-                    @Override
-                    public String getMessage() {
-                        return null;
-                    }
-                }));
-            }
+                @Override
+                public String getMessage() {
+                    return "Exception in generalized service execution class by ".concat(exceptionClass);
+                }
+            }));
         }
     }
 
