@@ -13,22 +13,29 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.java.sdeven.sparrow.commons.timewheel.timewheel.holder;
+package com.java.sdeven.sparrow.commons.timewheel;
 
-
-import com.java.sdeven.sparrow.commons.timewheel.timewheel.HashedWheelTimer;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Time Wheel Single Example
+ * Custom Timer
  *
  * @author sdeven
  * @since 1.0.0
  */
-public class HashedWheelTimerHolder {
+public interface Timer {
 
-    /** Non-precision time wheel, one frame every 5S */
-    public static final HashedWheelTimer INACCURATE_TIMER = new HashedWheelTimer(5, 16, 0);
+    /**
+     * Scheduling Timed Tasks
+     * @param #task {@link TimerTask}
+     * @param #unit {@link TimeUnit}
+     */
+    TimerFuture schedule(TimerTask task, long delay, TimeUnit unit);
 
-    private HashedWheelTimerHolder() {
-    }
+    /**
+     * Stopping all scheduling tasks
+     * @return Set<TimerTask>
+     */
+    Set<TimerTask> stop();
 }

@@ -13,12 +13,12 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.java.sdeven.sparrow.commons.timewheel.timewheel.holder;
+package com.java.sdeven.sparrow.commons.timewheel.holder;
 
 import com.google.common.collect.Maps;
-import com.java.sdeven.sparrow.commons.timewheel.timewheel.HashedWheelTimer;
-import com.java.sdeven.sparrow.commons.timewheel.timewheel.TimerFuture;
-import com.java.sdeven.sparrow.commons.timewheel.timewheel.TimerTask;
+import com.java.sdeven.sparrow.commons.timewheel.HashedWheelTimer;
+import com.java.sdeven.sparrow.commons.timewheel.TimerFuture;
+import com.java.sdeven.sparrow.commons.timewheel.TimerTask;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

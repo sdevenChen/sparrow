@@ -1,18 +1,3 @@
-/**
- *    Copyright 2023 sdeven.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
 package com.java.sdeven.sparrow.commons.timewheel.utils;
 
 import com.google.common.collect.Lists;
@@ -26,18 +11,53 @@ import java.net.InetAddress;
 import java.util.List;
 
 /**
- * A Time Tool
+ * 时间工具
  *
- * @author sdeven
- * @since 1.0.0
+ * @author tjq
+ * @since 2020/5/19
  */
 @Slf4j
 public class TimeUtils {
 
-    /** NTP time grant server (Ali Cloud -> Jiaotong University -> Apple) */
+    /**
+     * NTP 授时服务器（阿里云 -> 交大 -> 水果）
+     */
     private static final List<String> NTP_SERVER_LIST = Lists.newArrayList("ntp.aliyun.com", "ntp.sjtu.edu.cn", "time1.apple.com");
-    /** Maximum error 5S */
+    /**
+     * 最大误差 5S
+     */
     private static final long MAX_OFFSET = 5000;
+
+    /**
+     * 根据蔡勒公式计算任意一个日期是星期几
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @return 中国星期
+     */
+    public static int calculateWeek(int year, int month, int day) {
+        if (month == 1) {
+            month = 13;
+            year--;
+        }
+        if (month == 2) {
+            month = 14;
+            year--;
+        }
+        int y = year % 100;
+        int c = year /100 ;
+        int h = (y + (y / 4) + (c / 4) - (2 * c) + ((26 * (month + 1)) / 10) + day - 1) % 7;
+        //可能是负值，因此计算除以7的余数之后需要判断是大于等于0还是小于0，如果小于0则将余数加7。
+        if (h < 0){
+            h += 7;
+        }
+
+        // 国内理解中星期日为 7
+        if (h == 0) {
+            return 7;
+        }
+        return h;
+    }
 
     public static void check() throws TimeCheckException {
 
@@ -50,8 +70,8 @@ public class TimeUtils {
                     TimeInfo t = timeClient.getTime(InetAddress.getByName(address));
                     NtpV3Packet ntpV3Packet = t.getMessage();
                     log.info("[TimeUtils] use ntp server: {}, request result: {}", address, ntpV3Packet);
-                    /** RFC-1305：https://tools.ietf.org/html/rfc1305 */
-                    /** Ignoring transmission errors in timing centers */
+                    // RFC-1305标准：https://tools.ietf.org/html/rfc1305
+                    // 忽略传输误差吧...也就几十毫秒的事（阿里云给力啊！）
                     long local = System.currentTimeMillis();
                     long ntp = ntpV3Packet.getTransmitTimeStamp().getTime();
                     long offset =  local - ntp;
