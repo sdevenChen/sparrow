@@ -8,10 +8,10 @@
         <groupId>com.sdeven.sparrow</groupId>
         <artifactId>sparrow-cloud-idea</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>sparrow-cloud-api</artifactId>
-    <version>${revision}</version>
 
     <dependencies>
         <dependency>

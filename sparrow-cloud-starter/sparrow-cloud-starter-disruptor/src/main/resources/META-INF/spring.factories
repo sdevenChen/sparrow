@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.sparrow.cloud.disruptor.DisruptorAutoConfiguration,\
+  com.sparrow.cloud.disruptor.RingBufferAutoConfiguration

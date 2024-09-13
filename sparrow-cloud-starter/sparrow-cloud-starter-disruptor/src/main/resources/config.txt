@@ -1,0 +1,10 @@
+disruptor:
+  enabled: true
+  multi-producer: false
+  ring-buffer-size: 1024
+  ring-thread-numbers:  2
+  handler-definitions:
+  - order: 1
+    definitions: /BURIED/ADS/** = adsHandler
+  - order: 2
+    definitions: /BURIED/EVENT/** = eventHandler
