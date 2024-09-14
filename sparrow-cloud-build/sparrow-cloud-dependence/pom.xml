@@ -19,9 +19,12 @@
         <revision>1.0.0-SNAPSHOT</revision>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
-        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
-        <spring-cloud-alibaba.version>2.2.7.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <guava.version>29.0-jre</guava.version>
+        <sparrow-app.version>${revision}</sparrow-app.version>
+        <sparrow-starter.version>${revision}</sparrow-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -51,94 +54,29 @@
             </dependency>
 
             <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>2.7.22</version>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava-bom</artifactId>
+                <version>${guava.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-autoconfigure</artifactId>
-                <version>2.2.5.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>2.2.5.RELEASE</version>
+                <groupId>com.sdeven.sparrow</groupId>
+                <artifactId>sparrow-app-bom</artifactId>
+                <version>${sparrow-app.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-framework</artifactId>
-                <version>2.12.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-recipes</artifactId>
-                <version>2.12.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.curator</groupId>
-                <artifactId>curator-client</artifactId>
-                <version>2.12.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.10</version>
+                <groupId>com.sdeven.sparrow</groupId>
+                <artifactId>sparrow-starter-bom</artifactId>
+                <version>${sparrow-starter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
-                <version>2.4.12</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>3.6</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.4.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>5.6.2</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.72</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>1.4.2.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>1.4.2.Final</version>
-            </dependency>
-            <!-- mapStruct support lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-mapstruct-binding</artifactId>
-                <version>0.2.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>jakarta.validation</groupId>
-                <artifactId>jakarta.validation-api</artifactId>
-                <version>2.0.2</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

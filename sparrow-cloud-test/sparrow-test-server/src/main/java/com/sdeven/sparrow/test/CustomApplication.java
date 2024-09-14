@@ -13,18 +13,13 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.sdeven.sparrow.api;
+package com.sdeven.sparrow.test;
 
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.sdeven.sparrow.starter.autoconfig.CustomImport;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
-import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
-import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.embedded.EmbeddedWebServerFactoryCustomizerAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
@@ -35,11 +30,13 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.net.InetAddress;
-@Slf4j
 @CustomImport({
         ServletWebServerFactoryAutoConfiguration.class,
         EmbeddedWebServerFactoryCustomizerAutoConfiguration.class,
@@ -49,12 +46,9 @@ import java.net.InetAddress;
         ErrorMvcAutoConfiguration.class,
         MultipartAutoConfiguration.class,
         AopAutoConfiguration.class,
-//        RedisAutoConfiguration.class,
-//        RedissonAutoConfiguration.class,
-//        MybatisPlusAutoConfiguration.class,
 })
 @EnableConfigurationProperties({WebMvcProperties.class, ServerProperties.class})
-@MapperScan(basePackages = {"com.sdeven.sparrow.infras.*.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
+@Slf4j
 @ComponentScan(value = "com.sdeven.sparrow")
 public class CustomApplication implements ApplicationListener<WebServerInitializedEvent> {
 
@@ -67,5 +61,10 @@ public class CustomApplication implements ApplicationListener<WebServerInitializ
                         "----------------------------------------------------------",
                 InetAddress.getLocalHost().getHostAddress(),
                 event.getWebServer().getPort());
+    }
+
+    @Bean
+    public ServletWebServerFactory servletWebServerFactory() {
+        return new TomcatServletWebServerFactory();
     }
 }

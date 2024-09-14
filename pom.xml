@@ -14,7 +14,9 @@
         <module>sparrow-cloud-commons</module>
         <module>sparrow-cloud-starter</module>
         <module>sparrow-cloud-idea</module>
+        <module>sparrow-cloud-test</module>
     </modules>
+
     <properties>
         <java.encoding>UTF-8</java.encoding>
         <java.version>11</java.version>
@@ -31,16 +33,19 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.30</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -101,6 +106,7 @@
                         <exclude>pom.xml</exclude>
                         <exclude>Dockerfile</exclude>
                         <exclude>.flattened-pom.xml</exclude>
+                        <exclude>**/*.proto</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>sparrow-cloud-starter</artifactId>
+    <description>Public capabilities accumulated by the project</description>
     <packaging>pom</packaging>
 
     <modules>

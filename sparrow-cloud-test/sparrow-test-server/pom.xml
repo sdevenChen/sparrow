@@ -6,28 +6,19 @@
 
     <parent>
         <groupId>com.sdeven.sparrow</groupId>
-        <artifactId>sparrow-cloud-idea</artifactId>
+        <artifactId>sparrow-cloud-test</artifactId>
         <version>${revision}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>sparrow-cloud-api</artifactId>
+    <artifactId>sparrow-test-server</artifactId>
+
+    <description></description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
+            <groupId>com.sdeven.sparrow</groupId>
+            <artifactId>sparrow-cloud-api</artifactId>
         </dependency>
 
         <dependency>
@@ -36,8 +27,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.sdeven.sparrow</groupId>
+            <artifactId>sparrow-cloud-starter-import</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

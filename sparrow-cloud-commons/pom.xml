@@ -8,9 +8,11 @@
         <groupId>com.sdeven.sparrow</groupId>
         <artifactId>sparrow</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>sparrow-cloud-commons</artifactId>
+    <description>Refined basic tool modules</description>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
@@ -32,13 +34,6 @@
                 <groupId>com.sdeven.sparrow</groupId>
                 <artifactId>sparrow-cloud-dependence</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava-bom</artifactId>
-                <version> 29.0-jre</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

@@ -34,11 +34,6 @@ import java.util.List;
 public class CommonWebAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
-    public WebExceptionHandler webExceptionHandler() {
-        return new WebExceptionHandler();
-    }
-
-    @Bean
     public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
         /** Creating Message Converters */
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();

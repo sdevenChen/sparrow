@@ -14,6 +14,21 @@
     <artifactId>sparrow-cloud-bom</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <dubbo.version>2.7.23</dubbo.version>
+        <mysql.connector.version>8.0.33</mysql.connector.version>
+        <curator.framework.version>2.12.0</curator.framework.version>
+        <commons.lang3.version>3.10</commons.lang3.version>
+        <groovy.version>2.4.12</groovy.version>
+        <commons.net.version>3.6</commons.net.version>
+        <mybatis.plus.version>3.4.1</mybatis.plus.version>
+        <hutool.version>5.6.2</hutool.version>
+        <fastjson.version>2.0.52</fastjson.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok.mapstruct.version>0.2.0</lombok.mapstruct.version>
+        <jakarta.version>2.0.2</jakarta.version>
+    </properties>
+
     <modules>
         <module>sparrow-app-bom</module>
         <module>sparrow-starter-bom</module>

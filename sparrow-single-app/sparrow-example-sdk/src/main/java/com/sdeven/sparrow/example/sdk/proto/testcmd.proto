@@ -1,0 +1,8 @@
+syntax = "proto3";
+option java_package = "com.sdeven.sparrow.example.sdk.params";
+option java_outer_classname = "TestCmd";
+
+message TestCmd{
+  int32 id = 1;
+  string name = 2;
+}
