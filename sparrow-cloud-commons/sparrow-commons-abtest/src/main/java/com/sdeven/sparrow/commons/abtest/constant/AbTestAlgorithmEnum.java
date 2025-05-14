@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * 实验组分桶算法枚举
  * </p>
  *
- * @author zhouwei
+ * @author
  * @since 2023/10/30 14:55
  */
 @Getter

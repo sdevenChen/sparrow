@@ -208,7 +208,7 @@ public abstract class StringUtils extends org.apache.commons.lang3.StringUtils {
 		return false;
 	}
 
-	/*
+	/**
 	 * Check whether the given String contains any whitespace characters.
 	 * @param str the String to check (may be {@code null})
 	 * @return {@code true} if the String is not empty and
